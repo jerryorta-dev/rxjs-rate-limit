@@ -1,83 +1,141 @@
-
 <main class="main">
   <div class="content">
     <div class="content__section">
       <div>
-        <h3>RxJS debounceTime Vs. throttleTime</h3>
+        <h3>Custom RxJS Rate Limit Operator</h3>
+        <p>
+          Click the blue buttons within, and after the set delay, so see how the operators behave.
+        </p>
       </div>
 
       <div class="content__row">
-        <button mat-flat-button color="primary" (click)="debounceTime$.next(); debounceTimeStart()">rxjs debounceTime</button>
-        <span>debounceTime set to {{delay}} ms ( {{delay / 1000 }} second ).</span>
+        <button mat-flat-button color="primary" (click)="debounceTime$.next(); debounceTimeStart()">
+          rxjs debounceTime
+        </button>
+        <span>debounceTime set to {{ delay }} ms ( {{ delay / 1000 }} second ).</span>
       </div>
 
       <table>
-
         <tr>
           <td>State</td>
-          <td>{{debounceTimeState()}}</td>
+          <td>{{ debounceTimeState() }}</td>
         </tr>
 
         <tr>
           <td>Click Count</td>
-          <td>{{debounceTimeClickCount()}}</td>
+          <td>{{ debounceTimeClickCount() }}</td>
         </tr>
 
         <tr>
           <td>API Call</td>
-          <td>{{debounceTimeResult()}}</td>
+          <td>{{ debounceTimeResult() }}</td>
         </tr>
       </table>
-     
 
       <p>
         <a href="https://rxjs.dev/api/operators/debounceTime" target="_blank">rxjs debounceTime</a>
-        emits a value from the source Observable only after a particular time span has passed without another source emission.
-  
+        emits a notification from the source Observable only after a particular time span has passed
+        without another source emission.
       </p>
     </div>
     <div class="content__section">
       <div class="content__row">
-        <button mat-flat-button color="primary" (click)="throttleTime$.next(); throttleTimeStart()">rxjs throttleTime</button>
-        <span>throttleTime set to {{delay}} ms ( {{delay / 1000}} second ).</span>
+        <button mat-flat-button color="primary" (click)="throttleTime$.next(); throttleTimeStart()">
+          rxjs throttleTime
+        </button>
+        <span>throttleTime set to {{ delay }} ms ( {{ delay / 1000 }} second ).</span>
       </div>
 
       <table>
-
         <tr>
           <td>State</td>
-          <td>{{throttleTimeState()}}</td>
+          <td>{{ throttleTimeState() }}</td>
         </tr>
-
 
         <tr>
           <td>Click Count</td>
-          <td>{{throttleTimeClickCount()}}</td>
+          <td>{{ throttleTimeClickCount() }}</td>
         </tr>
 
         <tr>
           <td>API Call</td>
-          <td>{{throttleTimeResult()}}</td>
+          <td>{{ throttleTimeResult() }}</td>
         </tr>
       </table>
-     
 
       <p>
         <a href="https://rxjs.dev/api/operators/throttleTime" target="_blank">rxjs throttleTime</a>
-        emits a value from the source Observable, then <b>ignores</b> subsequent source values for a duration determined by another Observable, then repeats this process.
+        emits a value from the source Observable, then <b>ignores</b> subsequent source values for
+        duration milliseconds, then repeats this process.
       </p>
     </div>
-    
+
+    <div class="content__section">
+      <div class="content__row">
+        <button mat-flat-button color="primary" (click)="rateLimitTime$.next()">
+          custom rateLimitTime
+        </button>
+        <span>rateLimitTime set to {{ delay }} ms ( {{ delay / 1000 }} second ).</span>
+      </div>
+
+      <table>
+        <tr>
+          <td>State</td>
+          <td>{{ rateLimitRunning() ? "Running" : "Finished" }}</td>
+        </tr>
+
+        <tr>
+          <td>Click Count</td>
+          <td>{{ rateLimitTimeClickCount() }}</td>
+        </tr>
+
+        <tr>
+          <td>API Call</td>
+          <td>{{ rateLimitResult() }}</td>
+        </tr>
+      </table>
+
+      <p>
+        custom rateLimitTime emits a notification from the source Observable immediately, then
+        <b>ignores</b> subsequent source values for duration milliseconds. The <b>timer resets</b>
+        after each emission. Only after the timer is up, the process repeats.
+      </p>
+    </div>
+
+    <div class="content__section">
+      <div class="content__row">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="rateLimitTimeDisableRunning()"
+          (click)="rateLimitTimeDisable$.next()">
+          custom rateLimitTime with Disable
+        </button>
+        <span>rateLimitTime set to {{ delay }} ms ( {{ delay / 1000 }} second ).</span>
+      </div>
+
+      <table>
+        <tr>
+          <td>State</td>
+          <td>{{ rateLimitTimeDisableRunning() ? "Running" : "Finished" }}</td>
+        </tr>
+
+        <tr>
+          <td>Click Count</td>
+          <td>{{ rateLimitTimeDisableClickCount() }}</td>
+        </tr>
+
+        <tr>
+          <td>API Call</td>
+          <td>{{ rateLimitTimeDisableResult() }}</td>
+        </tr>
+      </table>
+      <p>
+        The custom rateLimitTime can accept a callback function that is called once the timer is up.
+        In this example, the button is disabled until the timer is up.
+      </p>
+    </div>
   </div>
 </main>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 
 <router-outlet />
