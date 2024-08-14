@@ -22,8 +22,8 @@ someObservable$
     })
   )
   .subscribe(() => {
-    // only receives first item during duration
-    // and after no emissions have emitted during duration
+    // Only receives first item during duration
+    // and no other emissions have emitted during duration
     // until timer is complete.
   });
 ```
