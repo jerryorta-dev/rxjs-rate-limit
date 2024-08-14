@@ -18,13 +18,16 @@ export const rateLimitTime = <T>(
 
 
           if (isRunning === null) {
+            // If the timer is not running, emit the value
             observer.next(value);
           } else {
+            // If the timer is running, new values
+            // are ignored and the timer is reset
             clearTimeout(isRunning);
           }
 
-          // wait until the timeout is over
-          // to allow more values to be sent
+          // Set the timer to ignore any new values
+          // during the timeout period
           isRunning = (<unknown>setTimeout(() => {
             isRunning = null;
 
