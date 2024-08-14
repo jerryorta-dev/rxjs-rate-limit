@@ -34,7 +34,7 @@ export const rateLimitTime = <T>(
             if (callbackFn) {
               callbackFn();
             }
-          }, timoutOut)) as number;
+          }, duration)) as number;
 
         },
         error(error) {
