@@ -1,5 +1,7 @@
 # rateLimitTime Operator
 
+[See operator](https://github.com/jerryorta-dev/rxjs-rate-limit/blob/main/src/app/rate-limit-operator.ts)
+
 The custom rateLimitTime operator emits a notification from the source Observable immediately, then
 **ignores** subsequent source values for duration milliseconds. The **timer resets**
 after each emission. Only after the timer is up, the process repeats.
